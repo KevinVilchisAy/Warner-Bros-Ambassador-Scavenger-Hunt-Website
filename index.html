@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Treasure Found!</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+      background: radial-gradient(circle at center, #3b2a1a, #1a120b);
+      color: #f5e6c8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+      overflow-x: hidden; /* prevent horizontal cut */
+      flex-direction: column;
+      padding: 15px;
+    }
+
+    .container {
+      max-width: 600px;
+      width: 100%;
+      background: rgba(0,0,0,0.4);
+      border: 2px solid #c9a66b;
+      border-radius: 15px;
+      padding: 25px 15px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.8);
+      opacity: 0;
+      transform: translateY(40px);
+      animation: enter 1.2s ease forwards;
+    }
+
+    h1 {
+      font-size: clamp(1.8rem, 6vw, 2.8rem);
+      margin-bottom: 10px;
+      color: #ffd27f;
+      text-shadow: 0 0 10px rgba(255,210,127,0.5);
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+      animation-delay: 0.4s;
+    }
+
+    p {
+      font-size: clamp(0.95rem, 4vw, 1.2rem);
+      margin-bottom: 15px;
+      line-height: 1.4;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+      animation-delay: 0.8s;
+    }
+
+    .button {
+      display: inline-block;
+      width: 100%;
+      max-width: 260px;
+      background: #c9a66b;
+      color: #1a120b;
+      padding: 12px 20px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+      animation-delay: 1.2s;
+    }
+
+    .button:hover {
+      background: #ffd27f;
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(255,210,127,0.6);
+    }
+
+    .logos {
+      margin-top: 25px;
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+      animation-delay: 1.6s;
+    }
+
+    .logos img {
+      width: clamp(45px, 14vw, 65px);
+      height: clamp(45px, 14vw, 65px);
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid #c9a66b;
+      filter: sepia(80%) brightness(0.9);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .logos img:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 12px rgba(255, 210, 127, 0.7);
+    }
+
+    /* Reduce effects on mobile for performance */
+    @media (max-width: 600px) {
+      .dust {
+        display: none; /* prevent lag + clutter */
+      }
+    }
+
+    .dust {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: #f5e6c8;
+      border-radius: 50%;
+      opacity: 0.3;
+      animation: float linear infinite;
+    }
+
+    @keyframes float {
+      from { transform: translateY(100vh); }
+      to { transform: translateY(-10vh); }
+    }
+
+    @keyframes enter {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>🏆 Treasure Discovered!</h1>
+    <p>You have conquered the scavenger hunt.</p>
+    <p>Please contact @utep_wbu on Instagram for more information regarding your price!</p>
+    <a href="#" class="button">@utep_wbu</a>
+
+    <div class="logos">
+      <img src="Warner Bros logo.jpeg" alt="Logo 1">
+      <img src="Gdg_logo.png" alt="Logo 2">
+    </div>
+  </div>
+
+  <script>
+    // Dust particles (reduced for performance)
+    for (let i = 0; i < 25; i++) {
+      let dust = document.createElement('div');
+      dust.classList.add('dust');
+      dust.style.left = Math.random() * 100 + 'vw';
+      dust.style.animationDuration = (Math.random() * 5 + 5) + 's';
+      dust.style.opacity = Math.random() * 0.5;
+      document.body.appendChild(dust);
+    }
+
+    // Confetti (reduced amount for phones)
+    for (let i = 0; i < 25; i++) {
+      let confetti = document.createElement('div');
+      confetti.style.position = 'absolute';
+      confetti.style.width = '6px';
+      confetti.style.height = '6px';
+      confetti.style.top = '-10px';
+      confetti.style.left = Math.random() * 100 + 'vw';
+      confetti.style.backgroundColor = `hsl(${40 + Math.random()*20}, 80%, 60%)`;
+      confetti.style.opacity = 0.6;
+      confetti.style.transform = 'rotate(' + Math.random()*360 + 'deg)';
+      confetti.style.animation = `fallConfetti ${Math.random()*3 + 3}s linear infinite`;
+      document.body.appendChild(confetti);
+    }
+
+    const style = document.createElement('style');
+    style.innerHTML = `
+      @keyframes fallConfetti {
+        to {
+          transform: translateY(110vh) rotate(360deg);
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
+
+</body>
+</html>
